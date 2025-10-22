@@ -1,12 +1,7 @@
-/* Charity: water Brand Colors & Fonts
 
-Primary Colors:
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap');
 
-Secondary Colors:
-
-Fonts:
-
-*/
+/* Charity: water brand style additions */
 
 * {
     margin: 0;
@@ -39,12 +34,13 @@ body {
 }
 .game-wrapper {
 .game-title {
-    color: #ffd600;
+    color: #ffc600;
     font-size: 2.2rem;
     font-weight: 700;
     text-align: center;
     margin-bottom: 0.5em;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    text-shadow: 1px 2px 0 #222, 0 2px 8px #ffc60044;
 }
     display: flex;
 .game-tagline {
@@ -61,6 +57,8 @@ body {
     margin-bottom: 1em;
     gap: 8px;
     flex-wrap: wrap;
+    color: #222;
+    font-weight: 700;
 }
     align-items: center;
 .score, .timer {
@@ -69,20 +67,68 @@ body {
 }
     gap: 20px;
 #start-btn {
-    background: #ffd600;
+    background: #ffc600;
     color: #222;
     border: none;
-    border-radius: 8px;
-    padding: 8px 18px;
-    font-size: 1rem;
-    font-weight: 600;
+    border-radius: 6px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 0.5em 2em;
+    margin-top: 1em;
     cursor: pointer;
-    transition: background 0.2s;
+    box-shadow: 0 2px 8px #ffc60033;
+    transition: background 0.2s, color 0.2s;
 }
 #start-btn:disabled {
     background: #eee;
     color: #aaa;
     cursor: not-allowed;
+}
+#start-btn:hover {
+    background: #222;
+    color: #ffc600;
+}
+.rules-panel {
+    background: #f4f4f4;
+    border-left: 6px solid #ffc600;
+    padding: 1em 1.5em;
+    margin-bottom: 1.5em;
+    border-radius: 8px;
+    color: #222;
+}
+.rules-panel h2 {
+    color: #ffc600;
+    font-weight: 700;
+    margin-top: 0;
+}
+.rules-panel ul {
+    margin: 0 0 0.5em 1.2em;
+    padding: 0;
+}
+.rules-panel li {
+    margin-bottom: 0.3em;
+    font-size: 1.05em;
+}
+.difficulty-select label {
+    color: #222;
+    font-weight: 700;
+    margin-right: 0.5em;
+}
+#difficulty {
+    background: #fff;
+    border: 2px solid #ffc600;
+    border-radius: 6px;
+    padding: 0.3em 1.2em 0.3em 0.7em;
+    font-size: 1em;
+    color: #222;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    outline: none;
+    transition: border 0.2s;
+}
+#difficulty:focus {
+    border-color: #222;
 }
 }
 #game-container {
@@ -160,15 +206,7 @@ body {
     font-weight: bold;
 }
 
-#game-container {
-    width: 800px;
-    height: 600px;
-    background-color: #e6f7ff;
-    border: 2px solid #333;
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-}
+
 
 
 #start-btn {
@@ -237,12 +275,4 @@ body {
     }
 }
 
-@media (max-width: 850px) {
-    .game-wrapper, .score-panel, #game-container {
-        width: 95vw;
-    }
-    
-    #game-container {
-        height: 70vh;
-    }
-}
+
