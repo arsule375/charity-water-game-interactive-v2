@@ -15,8 +15,8 @@ body {
     padding: 0;
     color: #333;
     width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow: auto; /* allow scrolling so content below the fold is reachable */
 }
 .cw-logo {
     display: block;
@@ -277,6 +277,37 @@ body {
     to {
         transform: translateY(600px);
     }
+}
+
+/* Support / donate panel styling */
+.support-panel {
+    margin-top: 12px;
+    padding: 14px;
+    border-top: 1px solid #eee;
+    background: #fcfcfc;
+    border-radius: 8px;
+    text-align: center;
+    color: #222;
+    font-size: 0.95rem;
+}
+.support-link {
+    color: #0077cc;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    margin: 6px 0;
+}
+.support-link.donate {
+    display: inline-block;
+    background: #ffc600;
+    color: #222;
+    padding: 10px 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-top: 8px;
+}
+.support-link.donate:hover {
+    background: #ffb600;
 }
 
 
