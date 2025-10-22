@@ -7,14 +7,16 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
+}
 body {
-    background: #f7f7f7;
+    background: #fff;
     font-family: 'Montserrat', Arial, sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
-}
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 .cw-logo {
     display: block;
@@ -177,11 +179,13 @@ body {
     display: flex;
 @media (max-width: 600px) {
     .game-wrapper {
-        max-width: 98vw;
-        padding: 12px;
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
     }
     #game-container {
-        height: 180px;
+        width: 100vw;
+        height: 100vh;
     }
     .cw-logo {
         max-width: 110px;

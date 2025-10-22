@@ -128,11 +128,13 @@ function endGame() {
   clearInterval(timerInterval);
   clearInterval(dropMaker);
   startBtn.disabled = false;
-  gameContainer.innerHTML = '';
+  // Remove only drops, not the whole container
+  const drops = gameContainer.querySelectorAll('.water-drop, .bad-drop');
+  drops.forEach(drop => drop.remove());
   let msgArr = score >= winScore ? winningMessages : losingMessages;
   let msg = msgArr[Math.floor(Math.random() * msgArr.length)];
   const endMsg = document.createElement('div');
   endMsg.className = 'end-message';
   endMsg.textContent = msg + ` (Score: ${score} / ${winScore})`;
-  gameWrapper.appendChild(endMsg);
+  gameContainer.appendChild(endMsg);
 }
