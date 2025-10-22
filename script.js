@@ -1,16 +1,36 @@
 // Variables to control game state
+
 let gameRunning = false; // Keeps track of whether game is active or not
 let dropMaker; // Will store our timer that creates drops regularly
 let score = 0;
 let timeLeft = 30;
 let timerInterval = null;
 
+// Difficulty settings
+const difficultySettings = {
+  easy:    { time: 40, winScore: 15, dropInterval: 1200 },
+  normal:  { time: 30, winScore: 20, dropInterval: 1000 },
+  hard:    { time: 20, winScore: 23, dropInterval: 700 }
+};
+let currentDifficulty = 'normal';
+let winScore = difficultySettings.normal.winScore;
+let dropIntervalMs = difficultySettings.normal.dropInterval;
+
 // Wait for button click to start the game
-document.getElementById("start-btn").addEventListener("click", startGame);
+
 const scoreEl = document.getElementById("score");
 const timeEl = document.getElementById("time");
 const startBtn = document.getElementById("start-btn");
 const gameContainer = document.getElementById("game-container");
+const difficultySelect = document.getElementById("difficulty");
+
+// Listen for difficulty changes
+difficultySelect.addEventListener("change", function() {
+  currentDifficulty = this.value;
+  // Optionally update UI or reset game here
+});
+
+document.getElementById("start-btn").addEventListener("click", startGame);
 
 const winningMessages = [
   "Amazing! You made a splash for clean water!",
@@ -34,16 +54,20 @@ logoImg.alt = "charity: water logo";
 logoImg.className = "cw-logo";
 gameWrapper.insertBefore(logoImg, gameWrapper.firstChild);
 
+
 function startGame() {
   // Prevent multiple games from running at once
   if (gameRunning) return;
 
-  gameRunning = true;
+  // Set difficulty-based parameters
+  const settings = difficultySettings[currentDifficulty] || difficultySettings.normal;
+  timeLeft = settings.time;
+  winScore = settings.winScore;
+  dropIntervalMs = settings.dropInterval;
 
+  gameRunning = true;
   score = 0;
   scoreEl.textContent = score;
-
-  timeLeft = 30;
   timeEl.textContent = timeLeft;
   startBtn.disabled = true;
   gameContainer.innerHTML = '';
@@ -57,8 +81,8 @@ function startGame() {
     }
   }, 1000);
 
-  // Create new drops every second (1000 milliseconds)
-  dropMaker = setInterval(createDrop, 1000);
+  // Create new drops at difficulty-based interval
+  dropMaker = setInterval(createDrop, dropIntervalMs);
 }
 
 function createDrop() {
@@ -98,16 +122,17 @@ function createDrop() {
   });
 }
 
+
 function endGame() {
   gameRunning = false;
   clearInterval(timerInterval);
   clearInterval(dropMaker);
   startBtn.disabled = false;
   gameContainer.innerHTML = '';
-  let msgArr = score >= 20 ? winningMessages : losingMessages;
+  let msgArr = score >= winScore ? winningMessages : losingMessages;
   let msg = msgArr[Math.floor(Math.random() * msgArr.length)];
   const endMsg = document.createElement('div');
   endMsg.className = 'end-message';
-  endMsg.textContent = msg;
+  endMsg.textContent = msg + ` (Score: ${score} / ${winScore})`;
   gameWrapper.appendChild(endMsg);
 }

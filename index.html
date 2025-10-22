@@ -10,7 +10,25 @@
     <div class="game-wrapper">
         <h1 class="game-title">Water Drop</h1>
         <p class="game-tagline">Catch the good drops, avoid the bad ones!</p>
+
+        <div class="rules-panel">
+            <h2>Difficulty Modes</h2>
+            <ul>
+                <li><strong>Easy:</strong> 40 seconds, win at 15 points, drops fall slower.</li>
+                <li><strong>Normal:</strong> 30 seconds, win at 20 points, standard drop speed.</li>
+                <li><strong>Hard:</strong> 20 seconds, win at 23 points, drops fall faster.</li>
+            </ul>
+            <p>Choose your challenge! Higher difficulties mean less time, more drops, and a higher score needed to win.</p>
+        </div>
         <div class="score-panel">
+            <div class="difficulty-select">
+                <label for="difficulty">Difficulty:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
             <div class="score">Score: <span id="score">0</span></div>
             <div class="timer">Time: <span id="time">30</span>s</div>
             <button id="start-btn">Start Game</button>
