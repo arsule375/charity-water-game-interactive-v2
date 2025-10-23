@@ -97,16 +97,27 @@ function createDrop() {
   drop.style.width = drop.style.height = `${size}px`;
 
   // Position the drop randomly across the game width
-  // Subtract 60 pixels to keep drops fully inside the container
+  // Use actual drop size to keep drops fully inside the container
   const gameWidth = document.getElementById("game-container").offsetWidth;
-  const xPosition = Math.random() * (gameWidth - 60);
+  const dropWidth = size;
+  const xPosition = Math.random() * Math.max(0, (gameWidth - dropWidth));
   drop.style.left = xPosition + "px";
 
   // Make drops fall for 4 seconds
-  drop.style.animationDuration = "4s";
+  // Set a variable duration (can be tuned per difficulty later)
+  const fallDuration = 4; // seconds
+  drop.style.animationDuration = `${fallDuration}s`;
+
+  // Start the drop above the visible area so animation moves it into view
+  drop.style.transform = `translateY(-${size + 20}px)`;
+
+  // Append then force a reflow before letting CSS animation take over
 
   // Add the new drop to the game screen
   document.getElementById("game-container").appendChild(drop);
+  // Force reflow to ensure animation starts from the transform we set
+  // eslint-disable-next-line no-unused-expressions
+  drop.offsetHeight;
 
   // Remove drops that reach the bottom (weren't clicked)
   drop.addEventListener("animationend", () => {
@@ -114,12 +125,20 @@ function createDrop() {
   });
 
   // Update score when drop is clicked
-  drop.addEventListener("click", () => {
+  // Support click, pointer and touch events for mobile devices
+  const handleCatch = (e) => {
+    // Prevent synthetic mouse events after touch
     if (!gameRunning) return;
+    e.stopPropagation();
+    e.preventDefault && e.preventDefault();
     score++;
     scoreEl.textContent = score;
     drop.remove();
-  });
+  };
+
+  drop.addEventListener("click", handleCatch);
+  drop.addEventListener("pointerdown", handleCatch);
+  drop.addEventListener("touchstart", handleCatch, { passive: false });
 }
 
 
